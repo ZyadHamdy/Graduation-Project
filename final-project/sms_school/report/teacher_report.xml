@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="teacher_report_data">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page" style="margin-top:-50px">
+                        <div align="center">
+                            <img t-if="doc.photo" t-att-src="image_data_uri(doc.photo)"
+                                 widh="200px" height="200px" class="rounded-circle" alt="Teacher Image"/>
+                        </div>
+
+
+                        <table class="tg table" style="margin-top:20px">
+                            <tbody>
+                                <tr align="center">
+                                    <th class="tg-0lax" colspan="2" style="letter-spacing:3px;font-size:22px">Teacher
+                                        Info
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0pky">Teacher Name:</td>
+                                    <td class="tg-0pky">
+                                        <t t-esc="doc.name"/>
+                                        <t t-esc="doc.middle"/>
+                                        <t t-esc="doc.last"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0pky">Teacher SSN:</td>
+                                    <td class="tg-0pky">
+                                        <t t-esc="doc.teacher_ssn"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0pky">E-Mail:</td>
+                                    <td class="tg-0pky">
+                                        <t t-esc="doc.email"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0pky">Age:</td>
+                                    <td class="tg-0pky">
+                                        <t t-esc="doc.age"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">The Rank:</td>
+                                    <td class="tg-0lax">
+                                        <t t-esc="doc.rank"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">Phone No.:</td>
+                                    <td class="tg-0lax">
+                                        <t t-esc="doc.contact_phone"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">Mobile no:</td>
+                                    <td class="tg-0lax">
+                                        <t t-esc="doc.contact_mobile"/>
+                                    </td>
+                                </tr>
+                                <tr align="center">
+                                    <th class="tg-0lax" colspan="2" style="letter-spacing:3px;font-size:22px">Expenses
+                                        Info
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">Amount Total:</td>
+                                    <td class="tg-0lax">
+                                        <t t-esc="doc.amount_total"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="tg-0lax">Status:</td>
+                                    <td class="tg-0lax">
+                                        <t t-esc="doc.state"/>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+
+        </t>
+    </template>
+
+
+</odoo>

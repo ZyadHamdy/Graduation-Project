@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+	<record id="academic_year_view_tree" model="ir.ui.view">
+		<field name="name">academic_year_view_tree</field>
+		<field name="model">academic.year</field>
+		<field name="arch" type="xml">
+			<tree string="Academic Year Tree">
+				<field name="name" />
+				<field name="code" />
+				<field name="date_start" />
+				<field name="date_stop" />
+				<field name="sequence"/>
+				<field name="current" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="academic_year_view_form" model="ir.ui.view">
+		<field name="name">academic_year_view_form</field>
+		<field name="model">academic.year</field>
+		<field name="arch" type="xml">
+			<form string="academic_year_form">
+				<sheet>
+					<group>
+						<group col="4" colspan="4">
+							<field name="name" placeholder="Name"/>
+							<field name="code" placeholder="Code"/>
+							<field name="date_start" placeholder="Start Date"/>
+							<field name="date_stop" placeholder="End Date"/>
+							<field name="sequence"/>
+							<field name="current" widget="boolean_toggle"/>
+						</group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	    <record id="academic_year_form_search" model="ir.ui.view">
+        <field name="name">academic_year_form_search</field>
+        <field name="model">academic.year</field>
+        <field name="arch" type="xml">
+            <search string="Student Information">
+                <filter name="current_true" string="Current Is True" domain="[('current','=', True)]"/>
+                <filter name="current_false" string="Current Is False" domain="[('current','=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+	<record id="academic_year_action" model="ir.actions.act_window">
+		<field name="name">Academic Year</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">academic.year</field>
+		<field name="domain">[]</field>
+		<field name="context">{'search_default_current_true': True}</field>
+		<field name="view_mode">tree,form,search</field>
+	</record>
+</odoo>

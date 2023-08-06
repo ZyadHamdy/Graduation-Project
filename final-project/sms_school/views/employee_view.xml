@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <!-- Form View 1 Of Student's Profiles -->
+    <record id="view_employee_student_form" model="ir.ui.view">
+        <field name="name">view_employee_student_form</field>
+        <field name="model">school.employee</field>
+        <field name="arch" type="xml">
+            <form string="employee Information">
+                <header>
+                    <button name="action_pay" string="Paid" class="oe_highlight" type="object" states="draft"/>
+                    <button name="action_confirm" string="Confirm" class="oe_highlight" type="object" states="paid"/>
+                    <button name="action_done" string="Done" class="oe_highlight" type="object" states="confirm"/>
+                    <button name="action_cancel" string="Cancel" type="object" states="draft,paid"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,paid,confirm,done"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="Paid" bg_color="bg-success" attrs="{'invisible': [('paid', '=', False)]}"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="ref" readonly="1"/>
+                        </h1>
+                    </div>
+                    <div class="oe_button_box" name="buttons"></div>
+                    <div class="oe_inline">
+                        <newline/>
+                        <separator string="Personal Information"/>
+
+                        <br/>
+                        <group>
+                            <div style="width: 135px;height: 124px;">
+                                <field name="photo" widget="image" class="oe_avatar oe_left" nolabel="1"
+                                       options="{'size': [250, 250]}"/>
+                            </div>
+                        </group>
+                        <div class="oe_title" >
+                            <group>
+                                <field name="name" placeholder="First Name" nolabel="1" required="1"/>
+                                <br/>
+                                <field name="middle" placeholder="Middle Name" nolabel="1"/>
+                                <br/>
+                                <field name="last" placeholder="Last Name" nolabel="1"/>
+                                <field name="paid" invisible="1"/>
+                            </group>
+                        </div>
+                    </div>
+
+                    <notebook>
+                        <page string="General" name="general">
+                            <group string="employee Information">
+                                <group>
+                                    <field name="date_of_birth" widget="date" placeholder="Birthdate"/>
+                                    <field name="gender" placeholder="Gender"/>
+                                    <field name="employee_ssn"/>
+                                    <field name="age"/>
+                                </group>
+                                <group>
+                                    <field name="email"/>
+                                </group>
+                                <newline/>
+                                <separator string="Emergency Contact Details" colspan="4"/>
+                                <newline/>
+                                <group colspan="4" col="4">
+                                    <field name="contact_phone" placeholder="Phone Number"/>
+                                    <field name="contact_mobile" placeholder="Mobile Number"/>
+                                </group>
+                                <newline/>
+                            </group>
+
+                        </page>
+                        <page string="Salary">
+                            <field name="school_employee_line_ids">
+                                <tree name="employee" editable="bottom">
+                                    <field name="salary"/>
+                                    <field name="taxes_in_percentage"/>
+                                    <field name="taxes_ids" widget='many2many_tags'/>
+                                    <field name="reward"/>
+                                    <field name="date"/>
+                                    <field name="subtotal"/>
+                                </tree>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="order_total">
+                                <label for="amount_total"/>
+                                <field name="amount_total"
+                                       force_save="1"
+                                       nolabel="1"
+                                       class="oe_subtotal_footer_separator"
+                                       widget="monetary"/>
+                                <field name="currency_id" invisible="1"/>
+                            </group>
+                            <div class="oe_clear"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <!-- Tree View 1 Of Student's Profiles -->
+    <record id="view_employee_student_tree" model="ir.ui.view">
+        <field name="name">view_employee_student_tree</field>
+        <field name="model">school.employee</field>
+        <field name="arch" type="xml">
+            <tree string="employee Information" create="false" delete="false">
+                <field name="name"/>
+                <field name="middle"/>
+                <field name="last"/>
+                <field name="gender"/>
+                <field name="contact_phone"/>
+                <field name="employee_ssn"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Search View 1 Of Student's Profiles -->
+    <record id="view_employee_student_tree" model="ir.ui.view">
+        <field name="name">view_employee_student_tree</field>
+        <field name="model">school.employee</field>
+        <field name="arch" type="xml">
+            <search string="employee Information">
+                <group col="10" colspan="4">
+                    <field name="gender"/>
+                    <field name="employee_ssn"/>
+                </group>
+                <newline/>
+                <group expand="0" string="Group By..." colspan="12" col="10">
+                    <filter name="gender" string="Gender" help="By Gender" context="{'group_by':'gender'}"/>
+                    <filter name="name" string="Name" help="By Class" context="{'group_by':'name'}"/>
+                </group>
+                <separator/>
+            </search>
+        </field>
+    </record>
+    <!-- Kanban View Of Student's Profiles -->
+    <record id="view_employee_student_kanban" model="ir.ui.view">
+        <field name="name">employee KANBAN</field>
+        <field name="model">school.employee</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="gender"/>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="color"/>
+                <field name="employee_ssn"/>
+                <field name="email"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <t t-set="color" t-value="kanban_color(record.color.raw_value || record.name.raw_value)"/>
+                        <div t-att-class="color + (record.color.raw_value == 1 ? ' oe_kanban_color_alert' : '')">
+                            <div class="oe_kanban_box oe_kanban_color_border">
+                                <div class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
+                                    <table class="oe_kanban_table">
+                                        <tr>
+                                            <td class="oe_kanban_title1" align="left" valign="middle"
+                                                style="padding-left:10px;">
+                                                <h4>
+                                                    <a type="open">
+                                                        <field name="name"/>
+                                                        <field name="middle"/>
+                                                        <field name="last"/>
+                                                        <field name="gender" invisible="1"/>
+                                                    </a>
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
+                                    <table class="oe_kanban_table">
+                                        <tr width="300">
+                                            <td valign="top" width="64" align="left">
+                                                <a type="open">
+                                                    <img heigh="80" width="80"
+                                                         t-att-src="kanban_image('school.employee', 'photo', record.id.raw_value)"
+                                                         alt="image"/>
+                                                </a>
+                                            </td>
+                                            <td valign="top" align="left" style="padding-left:10px;">
+                                                <table>
+                                                    <tr>
+                                                        <td>REF :</td>
+                                                        <td style="padding-left:10px;">
+                                                            <b>
+                                                                <field name="ref"/>
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SNN :</td>
+                                                        <td style="padding-left:10px;">
+                                                            <b>
+                                                                <field name="employee_ssn"/>
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>BD :</td>
+                                                        <td style="padding-left:10px;">
+                                                            <b>
+                                                                <field name="date_of_birth"/>
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Gender :</td>
+                                                        <td style="padding-left:10px;">
+                                                            <b>
+                                                                <field name="gender"/>
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <!-- Form View Of Admission Register Information -->
+
+
+    <!-- Action Of Form, Tree & Kanban View Of Admission Register Information -->
+    <record id="school_employee_action" model="ir.actions.act_window">
+        <field name="name">Employee</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">school.employee</field>
+        <field name="view_mode">kanban,tree,form,search</field>
+    </record>
+
+
+</odoo>

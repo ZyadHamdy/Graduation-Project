@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="student_report" model="ir.actions.report">
+        <field name="name">Student Info</field>
+        <field name="model">student.student</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sms_school.student_report_data</field>
+        <field name="report_file">sms_school.student_report_data</field>
+        <field name="binding_model_id" ref="model_student_student"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="teacher_report" model="ir.actions.report">
+        <field name="name">Teacher Info</field>
+        <field name="model">school.teacher</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sms_school.teacher_report_data</field>
+        <field name="report_file">sms_school.teacher_report_data</field>
+        <field name="binding_model_id" ref="model_school_teacher"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="employee_report" model="ir.actions.report">
+        <field name="name">Employee Info</field>
+        <field name="model">school.employee</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sms_school.employee_report_data</field>
+        <field name="report_file">sms_school.employee_report_data</field>
+        <field name="binding_model_id" ref="model_school_employee"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

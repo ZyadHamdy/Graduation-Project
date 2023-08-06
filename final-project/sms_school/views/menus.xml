@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+	<menuitem id="menu_ems" name="SMS" web_icon="sms_school,static/description/ems.png" sequence="1"/>
+	<menuitem id="menu_student_profile" name="Students" parent="menu_ems" action="student_student_action"  sequence="2"/>
+	<menuitem id="menu_teacher_profile" name="Teacher" parent="menu_ems" action="school_teacher_action"  sequence="3"/>
+	<menuitem id="menu_employee_profile" name="Employee" parent="menu_ems" action="school_employee_action"  sequence="4"/>
+	<menuitem id="menu_academic_profile" name="Academic Year" parent="menu_ems" action="academic_year_action"  sequence="5"/>
+
+	<menuitem id="menu_configuration" name="Configuration" parent="menu_ems"  sequence="5"/>
+	<menuitem id="menu_taxes" name="Taxes" parent="menu_configuration" action="account.action_tax_form"  sequence="1"/>
+	<menuitem id="menu_bank" name="Bank" parent="menu_configuration" action="school_bank_action"  sequence="1"/>
+</odoo>

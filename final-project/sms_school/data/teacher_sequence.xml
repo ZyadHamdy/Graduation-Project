@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data noupdate="1">
+        <!-- Sequences For student.code (Student Code) -->
+        <record id="seq_teacher" model="ir.sequence">
+            <field name="name">teacher</field>
+            <field name="code">teacher.seq</field>
+            <field name="prefix">EMP/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>
